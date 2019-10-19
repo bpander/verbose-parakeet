@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
-import { toggleTodo } from '../actions'
+import { toggleTodo } from '../redux-modules/todos'
 import TodoList from '../components/TodoList'
-import { RootState } from 'reducers/RootState'
+import { RootState } from 'redux-modules/RootState'
 import { Dispatch } from 'redux'
-import { getVisibleTodos } from 'selectors'
+import { getVisibleTodos } from 'redux-modules/todos'
 
 const mapStateToProps = (state: RootState) => ({
   todos: getVisibleTodos(state.visibilityFilter)(state.todos),

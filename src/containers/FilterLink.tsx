@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { setVisibilityFilter } from '../actions'
+import { setVisibilityFilter } from '../redux-modules/visibilityFilter'
 import Link from '../components/Link'
-import { RootState } from 'reducers/RootState'
+import { RootState } from 'redux-modules/RootState'
 import { VisibilityFilter } from 'enums/VisibilityFilter'
 
 interface FilterLinkProps {
