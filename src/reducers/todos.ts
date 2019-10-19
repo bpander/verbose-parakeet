@@ -1,27 +1,29 @@
 import { Reducer } from 'redux';
 
 import { Todo } from 'models/Todo';
+import { ADD_TODO, TOGGLE_TODO } from 'constants/actionTypes';
+import { TodoAction } from 'actions';
 
 export type TodosState = Todo[];
 
-export const todosReducer: Reducer<TodosState> = (state = [], action) => {
+export const todosReducer: Reducer<TodosState, TodoAction> = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case ADD_TODO:
       return [
         ...state,
         {
-          id: action.id,
-          text: action.text,
+          id: action.payload.id,
+          text: action.payload.text,
           completed: false
         }
-      ]
-    case 'TOGGLE_TODO':
+      ];
+    case TOGGLE_TODO:
       return state.map(todo =>
-        (todo.id === action.id)
+        (todo.id === action.payload.id)
           ? {...todo, completed: !todo.completed}
           : todo
-      )
+      );
     default:
-      return state
+      return state;
   }
 }
