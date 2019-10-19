@@ -27,37 +27,49 @@ export type TodoAction =
   | AddTodoAction
   | ToggleTodoAction;
 
-export type TodosState = Todo[];
+export type TodoState = {
+  items: Todo[];
+}
 
-export const todosReducer: Reducer<TodosState, TodoAction> = (state = [], action) => {
+const initialTodoState: TodoState = {
+  items: [],
+};
+
+export const todoReducer: Reducer<TodoState, TodoAction> = (state = initialTodoState, action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [
+      return {
         ...state,
-        {
-          id: action.payload.id,
-          text: action.payload.text,
-          completed: false
-        }
-      ];
+        items: [
+          ...state.items,
+          {
+            id: action.payload.id,
+            text: action.payload.text,
+            completed: false
+          },
+        ],
+      };
     case TOGGLE_TODO:
-      return state.map(todo =>
-        (todo.id === action.payload.id)
-          ? {...todo, completed: !todo.completed}
-          : todo
-      );
+      return {
+        ...state,
+        items: state.items.map(todo =>
+          (todo.id === action.payload.id)
+            ? {...todo, completed: !todo.completed}
+            : todo
+        ),
+      };
     default:
       return state;
   }
 }
 
-export const getVisibleTodos = (filter: VisibilityFilter) => (todos: TodosState) => {
+export const getVisibleTodos = (filter: VisibilityFilter) => (todo: TodoState) => {
   switch (filter) {
     case VisibilityFilter.All:
-      return todos;
+      return todo.items;
     case VisibilityFilter.Completed:
-      return todos.filter(t => t.completed);
+      return todo.items.filter(t => t.completed);
     case VisibilityFilter.Active:
-      return todos.filter(t => !t.completed);
+      return todo.items.filter(t => !t.completed);
   }
 };

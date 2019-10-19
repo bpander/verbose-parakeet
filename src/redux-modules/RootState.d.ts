@@ -1,7 +1,7 @@
-import { TodosState } from './todos';
-import { VisibilityFilterState } from './visibilityFilter';
+import { TodoState } from './todo';
+import { FilterState } from './filter';
 
 export interface RootState {
-  todos: TodosState;
-  visibilityFilter: VisibilityFilterState;
+  todo: TodoState;
+  filter: FilterState;
 }

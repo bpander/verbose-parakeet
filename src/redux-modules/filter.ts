@@ -16,15 +16,21 @@ export const setVisibilityFilter = (filter: VisibilityFilter): SetVisibilityFilt
 
 export type VisibilityFilterAction = SetVisibilityFilterAction;
 
-export type VisibilityFilterState = VisibilityFilter;
+export interface FilterState {
+  visibility: VisibilityFilter;
+}
 
-export const visibilityFilterReducer: Reducer<VisibilityFilter, VisibilityFilterAction> = (
-  state = VisibilityFilter.All,
+const initialFilterState: FilterState = {
+  visibility: VisibilityFilter.All,
+};
+
+export const filterReducer: Reducer<FilterState, VisibilityFilterAction> = (
+  state = initialFilterState,
   action,
 ) => {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
-      return action.payload.filter;
+      return { ...state, visibility: action.payload.filter };
     default:
       return state;
   }
