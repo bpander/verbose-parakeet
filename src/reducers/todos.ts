@@ -1,4 +1,10 @@
-const todos = (state = [], action) => {
+import { Reducer } from 'redux';
+
+import { Todo } from 'models/Todo';
+
+export type TodosState = Todo[];
+
+export const todosReducer: Reducer<TodosState> = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
@@ -19,5 +25,3 @@ const todos = (state = [], action) => {
       return state
   }
 }
-
-export default todos
